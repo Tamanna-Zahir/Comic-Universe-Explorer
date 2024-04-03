@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Page</title>
+  <%- include("partials/head.ejs") %>
+
+</head>
+<body>
+  <%- include("partials/nav.ejs") %>
+
+  <h1>Comic page</h1>
+    <br>
+    <br>
+    <h3>  <%= name %></h3>
+       <% for (const comic of comics) { %>
+        <p> <%= comic.comicTitle %></p>
+         <img src ="<%= comic.comicUrl%>">
+         <br>
+         <a href ="/addComment/<%= comic.comicId %>"><button class="btn btn-secondary">Add Comment</button></a>
+         
+        <button onclick="displayComments(<%= comic.comicId %>)" class="btn btn-info">View Comment</button>
+         <a href ="/viewComment/<%= comic.comicId %>"><button class="btn btn-danger">View Comment</button></a>
+      <% } %>
+        <!-- Modal -->
+        <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div id="commentInfo">  </div>
+                  <div id = "col1"> </div>
+                  <div id ="col2"> </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <br>
+        <script>
+          async function displayComments(comicId) {
+            let url = '/api/comment/' + comicId;
+            let response = await fetch(url);
+            let data = await response.json();
+            let authorInfo = document.querySelector("#commentInfo");
+            console.log(data);
+
+            // Accumulate content in a string variable
+            let content = "";
+            for (let i = 0; i < data.length; i++) {
+              content += `<h3> ${data[i].author}  </h3>` + "<br>";
+              content += `<h6> ${data[i].email}  </h6>` + "<br>";
+              content += `<h5> ${data[i].comment}  </h5>` + "<br>";
+            }
+
+            // Set the accumulated content
+            authorInfo.innerHTML = content;
+
+            const myModal = new bootstrap.Modal("#commentModal");
+            myModal.show();
+          }
+        </script>
+    <%- include("partials/footer.ejs") %>
+</body>
+</html>

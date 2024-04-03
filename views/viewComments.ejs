@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Page</title>
+  <%- include("partials/head.ejs") %>
+
+</head>
+<body>
+  <%- include("partials/nav.ejs") %>
+      <% if (comments && comments.length > 0) { %>
+        <h1>View Comments for <%= comments[0].comicTitle %></h1>
+          <img src ="<%= comments[0].comicUrl %>">
+          <br>
+           <% for (const comment of comments) { %>
+            <h3> <%= comment.author %> </h3> 
+             <br>
+            <h6> <%= comment.email %>  </h6>
+             <br>
+          <h5> <%= comment.comment %> </h5>
+             <br>
+              <a href= "/deleteComment/<%= comment.commentId %>/ <%= comment.comicId %>"><button class="btn btn-danger">Delete Comment</button></a>
+              <a href ="/updateComment/<%= comment.commentId %>/ <%= comment.comicId %>"><button class="btn btn-warning">Update Comment</button></a> 
+             <br>
+             <br>
+          <% } %>
+  <% }  else {%>
+        <h1>View Comment</h1>
+        <p>There are no Comments</p>
+        <% } %>
+    <%- include("partials/footer.ejs") %>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Page</title>
+  <%- include("partials/head.ejs") %>
+
+</head>
+<body>
+  <%- include("partials/nav.ejs") %>
+
+  <h1>My favorite Comics</h1>
+ 
+    <a href="/addComic"><button  class="btn btn-info">Add Comic</button></a>
+    
+    <br>
+    <br>
+    <% for (const site of sites) { %>
+  
+      <a style = "color: black" href ="/comicPage/<%= site.comicSiteId %>"><h5> <%= site.comicSiteName %></h5></a>
+      <a href ="<%= site.comicSiteUrl %>"><%= site.comicSiteUrl %></a>
+      <br>
+      <br>
+      <% } %>
+      <!-- <img  src ="<%= random.comicUrl %>">
+      <h6><%= random.comicSiteName %></h6> -->
+        <div id = "randomComic">
+          
+        </div>
+      <br>
+  
+        <button onclick ="displayRandomComic()" class="btn btn-success">Dispaly Random Comic</button>
+        
+
+        <script>
+          async function displayRandomComic(){
+            let url = "api/comic" ;
+            let response = await fetch(url);
+            let data = await response.json();
+            let comic = document.querySelector("#randomComic");
+            
+             comic.innerHTML = `<img src=${data[0].comicUrl} >` + "<br>";
+            comic.innerHTML += `<h6> ${data[0].comicSiteName} </h6>` + "<br>";
+          }
+        </script>
+    <%- include("partials/footer.ejs") %>
+</body>
+</html>

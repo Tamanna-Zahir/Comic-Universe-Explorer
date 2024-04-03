@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Page</title>
+  <%- include("partials/head.ejs") %>
+
+</head>
+<body>
+  <%- include("partials/nav.ejs") %>
+
+  <h1>Comic Comment</h1>
+    <br> 
+     <form action="/addComment" method="POST">
+    <% if(name) { %>
+      
+      
+    <h4> <%= name.comicTitle %></h4>
+    <img src ="<%= name.comicUrl %>">
+      <input type ="hidden" value ="<%= name.comicId %>" name = "id">
+      <% } %>
+      
+      <br>
+      <br>
+      <label>
+      userName:
+        <input type="text" name = "userName" placeholder="Enter UserName">
+      </label>
+      <br>
+      <br>
+      <label>
+        EmailAddress:
+          <input type="text" name = "emailAddress" placeholder="Enter Email Address">
+        </label>
+        <br>
+        <br>
+      <label>
+        Comment:
+          <textarea name ="comment"></textarea>
+      </label>
+        <br>
+        <br>
+    
+      <button>Submit Comment</button>
+      </form>
+    <%- include("partials/footer.ejs") %>
+</body>
+</html>

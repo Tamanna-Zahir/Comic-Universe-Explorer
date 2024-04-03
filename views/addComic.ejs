@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Page</title>
+  <%- include("partials/head.ejs") %>
+
+</head>
+<body>
+  <%- include("partials/nav.ejs") %>
+
+  <h1>Add Comic</h1>
+    <br>
+    <form action="/addComic" method="POST" >
+      <label>
+        title:
+        <input type="text" name = "comicTitle" placeholder="Enter Comic Title">
+      </label>
+      <br>
+      <br>
+      <label>
+        Url:
+        <input type="text" name = "comicUrl" placeholder="Enter Comic Site URl">
+      </label>
+      <br>
+      <br>
+      <label>
+        Publish Date:
+        <input type="date" name = "comicDate">
+      </label>
+     <br>
+      <br>
+      <select name = "site">
+        <option>Choose a WebSite</option>
+        <% for (site of sites)  { %> 
+        <option value ="<%= site.comicSiteId %>" > <%= site.comicSiteName %></option>
+          <% } %>
+      </select>
+            <br>
+            <br>
+      <button type="submit" class="btn btn-success">Submit New Comic</button>
+    </form>   
+    <%- include("partials/footer.ejs") %>
+</body>
+</html>

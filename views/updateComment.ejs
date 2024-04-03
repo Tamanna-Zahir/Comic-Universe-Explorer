@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Page</title>
+  <%- include("partials/head.ejs") %>
+
+</head>
+<body>
+  <%- include("partials/nav.ejs") %>
+
+    <h1>update Comments for</h1>
+    <form action="/updateComment/<%= comment.commentId %>/<%= comicId %>" method ="POST">
+      <label>
+        Author:
+        <input type ="text" name ="author" value="<%= comment.author %>">
+      </label>
+      <br>
+      <br>
+      <label>
+        Email Address:
+        <input type ="text" name ="email" value="<%= comment.email %>">
+      </label>
+      <br>
+      <br>
+      <label>
+        Comment:
+        <textarea name ="comment"> <%= comment.comment %></textarea>
+      </label>
+      <br>
+      <br>
+      <button class="btn btn-warning">Update Comment</button>
+    </form>
+   
+    <%- include("partials/footer.ejs") %>
+</body>
+</html>
